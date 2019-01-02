@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PageTypeGenerator\PageTypeGenerator.csproj">
+      <Project>{feaf7651-1dc7-400a-baac-1014d2b93a80}</Project>
+      <Name>PageTypeGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
