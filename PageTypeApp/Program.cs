@@ -11,12 +11,12 @@ namespace PageTypeApp
 	{
 		static void Main( string[] args )
 		{
-			string className = "ASM.AcademyNode";
-			string namespaceName = "ASM";
+			string className = "ASM.AboutNode";
+			string namespaceName = "ASM.Core.Models.PageTypes";
 			string kenticoDllRoot = @"C:\Users\itegrootenhuis\Documents\BZS\asm-web\CMS\bin";
 			string webSiteRoot = @"C:\Users\itegrootenhuis\Documents\BZS\asm-web";
 
-			CodeGenerator.GenerateClassCode( className, namespaceName, kenticoDllRoot, webSiteRoot );
+			Console.WriteLine( CodeGenerator.GenerateClassCode( className, namespaceName, kenticoDllRoot, webSiteRoot ) );
 
 		}
 	}
