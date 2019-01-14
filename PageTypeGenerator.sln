@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageTypeGenerator", "PageTypeGenerator\PageTypeGenerator.csproj", "{1AE70C3F-E20C-4B32-AD5C-1863A58D73CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageTypeGenerator", "PageTypeGenerator\PageTypeGenerator.csproj", "{FEAF7651-1DC7-400A-BAAC-1014D2B93A80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageTypeApp", "PageTypeApp\PageTypeApp.csproj", "{17006D74-5F4B-473B-BE5A-D272061D8879}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1AE70C3F-E20C-4B32-AD5C-1863A58D73CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AE70C3F-E20C-4B32-AD5C-1863A58D73CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AE70C3F-E20C-4B32-AD5C-1863A58D73CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AE70C3F-E20C-4B32-AD5C-1863A58D73CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEAF7651-1DC7-400A-BAAC-1014D2B93A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEAF7651-1DC7-400A-BAAC-1014D2B93A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEAF7651-1DC7-400A-BAAC-1014D2B93A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEAF7651-1DC7-400A-BAAC-1014D2B93A80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17006D74-5F4B-473B-BE5A-D272061D8879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17006D74-5F4B-473B-BE5A-D272061D8879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17006D74-5F4B-473B-BE5A-D272061D8879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17006D74-5F4B-473B-BE5A-D272061D8879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
