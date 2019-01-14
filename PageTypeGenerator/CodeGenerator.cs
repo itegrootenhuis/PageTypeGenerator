@@ -11,10 +11,10 @@ using CMS.Membership;
 
 namespace PageTypeGenerator
 {
-    public class CodeGenerator
-    {
+	public class CodeGenerator
+	{
 
-		public static void LoadExternalAssemblies(string rootForProjectAssembiles)
+		public static void LoadExternalAssemblies( string rootForProjectAssembiles )
 		{
 			// load external project assemblies
 			Assembly asm = null;
@@ -35,20 +35,21 @@ namespace PageTypeGenerator
 			// https://devnet.kentico.com/articles/take-advantage-of-kentico%E2%80%99s-nuget-feed-and-build-your-own-apps
 			//CMS.DataEngine.ConnectionHelper.ConnectionString = "Data Source=client-sql-16;Initial Catalog=ASM-Web;Integrated Security=False;Persist Security Info=False;User ID=ASM-Web;Password=asm_/,.;Connect Timeout=60;Encrypt=False;Current Language=English;";
 			CMS.DataEngine.CMSApplication.Init();
-			CMS.Base.SystemContext.WebApplicationPhysicalPath = webSiteRoot.TrimEnd( '\\' ) ; // "C:\SourceControl\kentico-rolvs-mvc\CMS"
-																							  // Gets an object representing a specific Kentico user
-																							  //UserInfo user = UserInfoProvider.GetUserInfo("administrator");
-			LoadExternalAssemblies(CMS.Base.SystemContext.WebApplicationPhysicalPath + "\\CMS\\bin\\");
+			CMS.Base.SystemContext.WebApplicationPhysicalPath = webSiteRoot.TrimEnd( '\\' ); // "C:\SourceControl\kentico-rolvs-mvc\CMS"
+																							 // Gets an object representing a specific Kentico user
+																							 //UserInfo user = UserInfoProvider.GetUserInfo("administrator");
+			LoadExternalAssemblies( CMS.Base.SystemContext.WebApplicationPhysicalPath + "\\CMS\\bin\\" );
 
 			UserInfo user = UserInfoProvider.GetUserInfo( "administrator" );
 			string code = "";
+
 			// Sets the context of the user
-			using( new CMSActionContext(user)) //{ LogSynchronization = false, LogWebFarmTasks = false } )
+			using( new CMSActionContext( user ) ) //{ LogSynchronization = false, LogWebFarmTasks = false } )
 			{
 				var classInfo = CMS.DataEngine.DataClassInfoProvider.GetDataClassInfo( className ); // "ASM.ArticleNode"
-							
+
 				classInfo.ClassCodeGenerationSettingsInfo.NameSpace = namespaceName; // ASM.Core.Models.PageTypes
-				var y = classInfo.ClassCodeGenerationSettings;
+																					 
 				if( !SystemContext.IsPrecompiledWebsite )
 				{
 					// can't save to folder ...
@@ -58,7 +59,7 @@ namespace PageTypeGenerator
 
 					code = CMS.FormEngine.ContentItemCodeGenerator.Internal.GenerateItemClass( classInfo );
 				}
-				
+
 			}
 
 			return code;

@@ -17,7 +17,7 @@ namespace PageTypeApp
 			string webSiteRoot = @"C:\Users\itegrootenhuis\Documents\BZS\asm-web";
 
 			Console.WriteLine( CodeGenerator.GenerateClassCode( className, namespaceName, kenticoDllRoot, webSiteRoot ) );
-
+			Console.ReadLine( );
 		}
 	}
 }
