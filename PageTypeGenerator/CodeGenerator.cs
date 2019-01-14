@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CMS.Base;
-using CMS.DataEngine;
 using CMS.FormEngine;
 using CMS.Membership;
 
@@ -13,12 +12,25 @@ namespace PageTypeGenerator
 {
 	public class CodeGenerator
 	{
+		public static Type CmsDataEngine;
+
+
+		public static Type LoadExternalAssembly( string rootForProjectAssembily, string type = null )
+		{
+			Assembly asm = null;
+			asm = Assembly.LoadFrom( rootForProjectAssembily );
+			if( type == null )
+			{
+				return null;
+			}
+			return asm.GetType( type );
+		}
 
 		public static void LoadExternalAssemblies( string rootForProjectAssembiles )
 		{
 			// load external project assemblies
-			Assembly asm = null;
-			asm = Assembly.LoadFrom( rootForProjectAssembiles + "CMS.DocumentEngine.dll" );
+			LoadExternalAssembly( rootForProjectAssembiles + "CMS.DocumentEngine.dll" );
+			CmsDataEngine = LoadExternalAssembly( rootForProjectAssembiles + "CMS.DataEngine.dll", "CMS.DataEngine.CMSApplication" );
 		}
 
 		public static string GenerateClassCode( string className, string namespaceName, string kenticoDllRoot, string webSiteRoot )
@@ -34,22 +46,31 @@ namespace PageTypeGenerator
 
 			// https://devnet.kentico.com/articles/take-advantage-of-kentico%E2%80%99s-nuget-feed-and-build-your-own-apps
 			//CMS.DataEngine.ConnectionHelper.ConnectionString = "Data Source=client-sql-16;Initial Catalog=ASM-Web;Integrated Security=False;Persist Security Info=False;User ID=ASM-Web;Password=asm_/,.;Connect Timeout=60;Encrypt=False;Current Language=English;";
-			CMS.DataEngine.CMSApplication.Init();
+			//CMS.DataEngine.CMSApplication.Init();
+
+			LoadExternalAssemblies( @"C:\Users\itegrootenhuis\Documents\BZS\asm-web\CMS\bin\" );
+
+			MethodInfo cmsDataEngineInit = CmsDataEngine.GetMethod( "Init" );
+			// Create an instance.
+			object cmsDataEngineObject = Activator.CreateInstance( CmsDataEngine );
+			// Execute the method.
+			cmsDataEngineInit.Invoke( cmsDataEngineObject, null );
+
 			CMS.Base.SystemContext.WebApplicationPhysicalPath = webSiteRoot.TrimEnd( '\\' ); // "C:\SourceControl\kentico-rolvs-mvc\CMS"
 																							 // Gets an object representing a specific Kentico user
 																							 //UserInfo user = UserInfoProvider.GetUserInfo("administrator");
-			LoadExternalAssemblies( CMS.Base.SystemContext.WebApplicationPhysicalPath + "\\CMS\\bin\\" );
+
 
 			UserInfo user = UserInfoProvider.GetUserInfo( "administrator" );
 			string code = "";
-
 			// Sets the context of the user
+
 			using( new CMSActionContext( user ) ) //{ LogSynchronization = false, LogWebFarmTasks = false } )
 			{
 				var classInfo = CMS.DataEngine.DataClassInfoProvider.GetDataClassInfo( className ); // "ASM.ArticleNode"
 
 				classInfo.ClassCodeGenerationSettingsInfo.NameSpace = namespaceName; // ASM.Core.Models.PageTypes
-																					 
+
 				if( !SystemContext.IsPrecompiledWebsite )
 				{
 					// can't save to folder ...
