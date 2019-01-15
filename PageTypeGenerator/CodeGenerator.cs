@@ -33,7 +33,7 @@ namespace PageTypeGenerator
 			CmsDataEngine = LoadExternalAssembly( rootForProjectAssembiles + "CMS.DataEngine.dll", "CMS.DataEngine.CMSApplication" );
 		}
 
-		public static string GenerateClassCode( string className, string namespaceName, string kenticoDllRoot, string webSiteRoot )
+		public static string GenerateClassCode( string className, string namespaceName, string kenticoDllRoot, string webSiteRoot, string connectionString )
 		{
 			// https://docs.google.com/document/d/1umNIQG2h3ZuuJo2c-p7LZUpZcXpuoOXYQKza-Y1KA_E/edit
 
@@ -45,10 +45,10 @@ namespace PageTypeGenerator
 
 
 			// https://devnet.kentico.com/articles/take-advantage-of-kentico%E2%80%99s-nuget-feed-and-build-your-own-apps
-			//CMS.DataEngine.ConnectionHelper.ConnectionString = "Data Source=client-sql-16;Initial Catalog=ASM-Web;Integrated Security=False;Persist Security Info=False;User ID=ASM-Web;Password=asm_/,.;Connect Timeout=60;Encrypt=False;Current Language=English;";
+			CMS.DataEngine.ConnectionHelper.ConnectionString = connectionString;
 			//CMS.DataEngine.CMSApplication.Init();
 
-			LoadExternalAssemblies( @"C:\Users\itegrootenhuis\Documents\BZS\asm-web\CMS\bin\" );
+			LoadExternalAssemblies( kenticoDllRoot );
 
 			MethodInfo cmsDataEngineInit = CmsDataEngine.GetMethod( "Init" );
 			// Create an instance.
@@ -63,11 +63,11 @@ namespace PageTypeGenerator
 
 			UserInfo user = UserInfoProvider.GetUserInfo( "administrator" );
 			string code = "";
-			// Sets the context of the user
 
+			// Sets the context of the user
 			using( new CMSActionContext( user ) ) //{ LogSynchronization = false, LogWebFarmTasks = false } )
 			{
-				var classInfo = CMS.DataEngine.DataClassInfoProvider.GetDataClassInfo( className ); // "ASM.ArticleNode"
+				var classInfo = CMS.DataEngine.DataClassInfoProvider.GetDataClassInfo( className ); // "ASM.AboutNode"
 
 				classInfo.ClassCodeGenerationSettingsInfo.NameSpace = namespaceName; // ASM.Core.Models.PageTypes
 
@@ -75,6 +75,7 @@ namespace PageTypeGenerator
 				{
 					// can't save to folder ...
 				}
+
 				if( ContentItemCodeGenerator.Internal.CanGenerateItemClass( classInfo ) )
 				{
 

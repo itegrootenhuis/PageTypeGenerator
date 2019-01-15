@@ -13,10 +13,12 @@ namespace PageTypeApp
 		{
 			string className = "ASM.AboutNode";
 			string namespaceName = "ASM.Core.Models.PageTypes";
-			string kenticoDllRoot = @"C:\Users\itegrootenhuis\Documents\BZS\asm-web\CMS\bin";
+			string kenticoDllRoot = @"C:\Users\itegrootenhuis\Documents\BZS\asm-web\CMS\bin\";
 			string webSiteRoot = @"C:\Users\itegrootenhuis\Documents\BZS\asm-web";
+			string connectionString = "Data Source=client-sql-16;Initial Catalog=ASM-Web;Integrated Security=False;Persist Security Info=False;User ID=ASM-Web;Password=asm_/,.;Connect Timeout=60;Encrypt=False;Current Language=English;";
+			
 
-			Console.WriteLine( CodeGenerator.GenerateClassCode( className, namespaceName, kenticoDllRoot, webSiteRoot ) );
+			Console.WriteLine( CodeGenerator.GenerateClassCode( className, namespaceName, kenticoDllRoot, webSiteRoot, connectionString ) );
 			Console.ReadLine( );
 		}
 	}
